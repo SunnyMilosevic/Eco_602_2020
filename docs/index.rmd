@@ -19,9 +19,6 @@ knitr::opts_chunk$set(message = FALSE)
 options(knitr.duplicate.label = TRUE)
 ```
 
-Everything above this line is the header.
-
-
 <!-- The following text won't be displayed in your document.  It tells R how to make nicer looking buttons for your tabbed content. -->
 
 <style type="text/css" rel="stylesheet">
@@ -38,16 +35,6 @@ Everything above this line is the header.
     border-color: #ffffff;
 }
 </style>
-
-
-Use this document as a template to build your final project.
-
-If you've already created the file index.Rmd in your docs folder, you can paste everything below the header into that document.
-
-If you don't yet have an index.Rmd file, save this document as index.Rmd in the docs folder of your main class folder.
-
-Edit this template to fill in your own content.
-
 
 # Introduction
 

@@ -38,18 +38,19 @@ options(knitr.duplicate.label = TRUE)
 
 # Introduction
 
-Type a brief introduction here.
+This page serves as a summary of the main concepts learned about coding scripts in R Studio. 
+The following sections will elaborate on the multitude of functions that are useful for scientific data analysis. 
 
 
 # Functions 1: Data Structure Functions {.tabset .tabset-pills}
 
-Look at the source code for the final project template, you'll notice the text:
+<!--Look at the source code for the final project template, you'll notice the text:
 
 {.tabset .tabset-pills}
 
 This creates tabbed content for all the following sections that are one-level below.
 
-- If you include them on a primary header (one #), all of the subsequent secondary headers will in tabs.
+- If you include them on a primary header (one #), all of the subsequent secondary headers will in tabs.-->
 
 
 

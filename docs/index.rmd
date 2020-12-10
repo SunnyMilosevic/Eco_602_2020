@@ -1492,7 +1492,7 @@ Model 1 (fit 1) is factoring body length, thus its AIC value is misleading.
   
 **2) Which of the two models with lowest AIC scores would you select? Explain your decision based on model fit and the complexity/understanding trade-off.**
    
-Model 4 (fit 4) because it the lowest of the two AIC's. 
+Model 4 (fit 4) because it the lowest of the two AIC's. However, since the values differ almost insignificantly, both would be justified to select in this case.
 
 
   

@@ -38,161 +38,1478 @@ options(knitr.duplicate.label = TRUE)
 
 # Introduction
 
-This page serves as a summary of the main concepts learned about coding scripts in R Studio. 
-The following sections will elaborate on the multitude of functions that are useful for scientific data analysis. 
-
+This page serves as a summary of the main concepts learned about coding scripts and graphing data in R Studio. 
+The following sections will elaborate on the multitude of functions that are useful for data analysis. 
 
 # Functions 1: Data Structure Functions {.tabset .tabset-pills}
 
-<!--Look at the source code for the final project template, you'll notice the text:
-
-{.tabset .tabset-pills}
-
-This creates tabbed content for all the following sections that are one-level below.
-
-- If you include them on a primary header (one #), all of the subsequent secondary headers will in tabs.-->
-
-
-
-
 ## `c()`
 
-The following is the markdown text needed to reproduce my code example for `c()`:
+The *`c()`* function combines or concentrates its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements). All of the elements must be of the same type.Character and numeric types cannot be called in the same call to `c()`
 
-
-The function `c()` *combines* or *concatenates* its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).
-
-- All of the elements must be of the same *type*.
-  - I can't combine character and numeric types in the same call to `c()`
-
-Here's two examples using numeric and character data types:
+- A couple examples of creating vectors are shown below:
 
 ```{r}
-# Create a vector of numbers:
-num_vec  = c(1, 4, 8, 9, 13)
+num_vec  = c(1, 4, 8, 9, 13) # Create a vector of numbers.
 
-# Create a vector of characters:
-char_vec = c("a", "fish", "data is cool")
+char_vec = c("a", "fish", "data is cool") # Create a vector of characters.
 ```
 
-I can show the contents of a vector by typing the name of the vector, or using the `print()` function.
+- Vector contents can be shown by typing the name of the vector, or using the `print()` function.
 
 ```{r}
-# Typing the name of the vector into the console prints the contents
-num_vec
 
-# The print() function accomplishes the same task:
-print(char_vec)
+num_vec # Typing the name of the vector into the console prints the contents.
+
+print(char_vec) # The print() function accomplishes the same task.
 ```
 
 
 ## `data.frame()`
 
-Here is more text for the data frame section. 
-A data frame contains columns from each vector:
-```{r data_frame_example_1}
-#build a dataframe from scratch:
-dat_1 = data.frame(
-  letters = c("b","w","b"),
-  numers_1 = c(34, 6, 123454))
-# i can print contents by typing the name of the data frame: 
-dat_1
-#subset a column by name
-dat_1$letters
-```
-How to subset a data frame:
+The *data.frame()* function creates data frames, a matrix of vector summaries for data variables or categories. A data frame contains columns from each vector. Columns may be of differing types, such as numeric, logical, factor or character, and all columns should be named. Vectors must have an equal number of observations (or data entries) in order for a data frame to work. Rows will follow a numerical order unless they are specifically named as well. 
 
-- If I know the name of a column, I can use the $ symbol.
+- To build a data frame from scratch, follow the R script in the example below: 
+
+```{r data_frame_example_1}
+dat_1 = data.frame(
+  letters = c("b","w","b", "a", "f", "k"),
+  numbers_1 = c(34, 6, 123454, 7, 421, 36),
+  numbers_2 = c(2, 55, 612, 756, 4, 88),
+  names_1 = c("Alex", "Sara", "Kevin", "Bob", "Katie", "Nathan"),
+  names_2 = c("John", "Britney", "Stacy", "Greg", "Heather", "Luke"),
+  logical_1 = c(TRUE, FALSE, FALSE, TRUE, TRUE, FALSE))
+```
+- Data frames can be printed by using the following two commands:
+
+```{r data_frame_example_2}
+dat_1 # Print contents by typing the name of the data frame. 
+print(dat_1) # Print contents by using the print function.
+```
+
+- A subset column can be called by using the name of the column and the '$' symbol:
+```{r data_frame_example_3}
+dat_1$letters # Subset a column by name
+```
+
+- Some additional functions related to data frames are the following:
+```{r data_frame_example_4}
+str(dat_1) # Structure of the data frame.
+nrow(dat_1) # Number of Rows (observations).
+ncol(dat_1) # Number of Columns (variables).
+head(dat_1, n=2) # First 2 rows of data frame, which is useful for very long data frames.
+tail(dat_1, n=3) # Last 3 rows of data frame, which is useful for very long data frames.
+names(dat_1) # Header names (aka variable names).
+```
 
 ## `matrix()`
 
-Type your matrix example here.
+The *'matrix()'* function creates a matrix, or a two-dimensional table of vectors. 
+
+- To build a data frame from scratch, follow the R script in the example below: 
+
+```{r matrix_example_1}
+Matrix_1 = matrix(
+  c(5, 43, 26, 467, 49, 2, 57483, 3, 867, 24, 478, 721), #Vector of sample set of numerical values.
+  nrow = 4, #Designated number of rows in this matrix.
+  ncol = 3, #Designated number of columns in this matrix.
+  byrow = TRUE) #If FALSE (which is the default) the matrix is filled by columns; if TRUE the matrix is filled by rows.
+print(Matrix_1) #Prints the matrix into a table
+```
+
+- Specific information can be called from the matrix by specifying the row and column: 
+
+```{r matrix_example_2}
+Matrix_1[2, 3]  # This function calls for the data value in the 2nd row and the 3rd column.
+```
+
+- Likewise, whole rows of columns can be called from a matrix: 
+   
+```{r matrix_example_3}
+Matrix_1[2, ]# This function calls for all values in the 2nd row.
+Matrix_1[ ,3]# This function calls for all values in the 3rd column. 
+```
+
+- Multiple columns or rows can be called at a time:
+
+```{r matrix_example_4}
+Matrix_1[ ,c(1,3)]  # This function calls for all values in the 1st and 3rd columns. 
+```
+
+- Columns or rows can be assigned names, per below: 
+
+```{r matrix_example_5}
+dimnames(Matrix_1) = list(
+  c("Row 1", "Row 2", "Row 3", "Row 4"),  # Row names.
+  c("Col 1", "Col 2", "Col 3")  # Column names.
+)
+Matrix_1 # Prints the whole matrix.
+```
 
 
 ## `length()`
 
+The *'length()'* function is used to determine the quantity of data set values. 
+
+- Using a new matrix, length function is used to quickly summarize the number of its values: 
+
+```{r matrix_example 2}
+(Matrix_2 <- matrix( 
+  c(1:2000), # Vector of 2000 numerical values.
+  nrow = 20, # 20 Rows
+  ncol = 100)) # 100 Columns
+
+length(Matrix_2) #length function 
+```
+
 
 ## `nrow()`
+
+The *'nrow()'* function calls for the number of rows in a data frame or a matrix.
+
+- The following example will call for the number of rows of the two matrices and the single data frame created in previous examples of this function section:
+
+```{r nrow_example_1}
+nrow(dat_1)
+nrow(Matrix_1) 
+nrow(Matrix_2)
+```
 
 
 ## `ncol()`
 
+Similar to the *nrow()'* function, the *ncol()* function calls for the number of columns in a data frame or a matrix. 
+
+- Again, the following example will call for the number of columns in the two matrices and the single data frame created in previous examples of this function section.
+
+```{r ncol_example_1}
+ncol(dat_1)
+ncol(Matrix_1) 
+ncol(Matrix_2)
+```
+
 
 ## `dim()`
+
+The *dim()* function is used to set or retrieve the dimension of the specified matrix or data frame. When using to retrieve the dimension, output numbers indicate number of rows followed by number of columns. This function cannot retrieve the dimension of a single vector. 
+
+- Examples of how to retrieve dimension of a matrix or a data frame, using previously created matrix and data frame, are below:
+
+```{r dim_example_1}
+dim(Matrix_1)  # Retrieve the dimension of this specified matrix.
+dim(dat_1) # Retrieve the dimension of this specified data frame.
+```
+
+- Another way to use the dim function is to set the size of a matrix or data frame. The following example will create a vector of a given dimension, and use the dim function to set the data values into a specified table. 
+
+```{r dim_example_2}
+Dim_1 <- c(1:100) # Create a vector of numbers.
+Dim_1 # Print the created vector.
+
+dim(Dim_1) <- c(10, 10) # Use dim function to break the vector into a data frame, or a matrix of 10 rows by 10 columns
+Dim_1 # Print the restructured vector, which is now a data frame.
+
+str(Dim_1) # Structure of the data frame, which are two un-named vectors of integer values 1 through 10. 
+```
 
 
 # Functions 2: Numerical Data Exploration  {.tabset .tabset-pills}
 
 ## `summary()`
 
+The *summary()* function is used to produce result summaries of various model fitting functions. It provides descriptive statistics on a data set, such as minimum, the first quantile, the median, the mean, the 3rd quantile, and the maximum value of our input data.
+
+- The following shows how the summary function can be applied to a vector:
+
+```{r summary_example_1}
+vector_1 <- c(1:500) # Create a vector of numbers.
+summary(vector_1) # Print the summary of the specified vector.
+```
+
+- The next example shows how the summary function can be applied to a data frame.
+
+```{r summary_example_2}
+dat_2 <- data.frame( # Create example data frame.
+  A = 1:10, # Named 1st column A to be a vector of integers 1 through 10
+  B = letters[1:10], # Named 2nd column B to be a vector of letters, from the 1st letter to the 10th letter in the alphabet
+  C = 4, # Named 3rd column C, to always be a value of 4
+  D = c(TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE)) # Named 4th column D to be a logical vector of 10 true or false values
+
+dat_2 # Print example data frame.
+
+summary(dat_2) # Print summary of the specified data frame.
+```
+
+- The summary function can also be used to review linear regression models, as shown in the following example. We will use the *palmerpenguins* data set for exploration. 
+
+```{r summary_example_3}
+require(palmerpenguins) # Load the Penguin data set.
+penguin_dat = droplevels(subset(penguins, species != "Gentoo")) # Create a data frame for a specific Penguin species.
+summary(penguin_dat) # Print summary of the data frame
+summary(lm(body_mass_g ~ bill_length_mm, data=penguin_dat))# Print summary of the linear regression model of the selected data set's variables: body mass and bill length
+
+```
+
+
 ## `mean()`
+The *mean()* function calculates the arithmetic mean of a numeric input vector.
+
+- Basic application can be applied to vectors, as shown below:
+```{r mean_example_1}
+vector_2 <- c(1:100) # Create a vector of numbers.
+mean(vector_2) # Apply mean function
+```
+
+- The next example shows how to derive a mean value in a vector that has some null "NA" values, as letters cannot be computed arithmetically. 
+```{r mean_example_2}
+vector_3 <- c(1, 5, 8, 3, NA, 0, 9, 78, 10, -2, -16) # Create a vector of numbers with an NA value.
+mean(vector_3) # Apply mean function - result is an error or "NA"
+mean(vector_3, na.rm = TRUE) # Inform R to remove the NA value before computing the mean. Result is a desired numerical value.
+```
+
+- The following examples applies the mean function to a real set of data. We will use the *palmerpenguins* data set for exploration.
+```{r mean_example_3}
+
+head(penguins) # Print head rows of the specified data set.
+mean(penguins$bill_length_mm) # Mean of the bill length column. Result is 'NA' due to some NA values. 
+mean(penguins$bill_length_mm, na.rm = TRUE) # Inform R to remove NA values before computing the mean. Result is a desired numerical value. 
+```
+
 
 ## `sd()`
- 
+The *sd()* function calculates the standard deviation of a numeric input vector. Mathematically, it is the square root of data variance. 
+
+- An example of calculating the standard deviation for a vector is below. We will use one of the previously created vectors:
+
+```{r sd_example_1}
+vector_2 #Print specified vector for preview.
+sd(vector_2) # Applying the standard deviation calculation to specified vector.
+```
+
+- Another example shown is how to calculate the standard deviation for a vector with NA or NULL values. Again, we will use one of the previously created vectors which has an NA value among its values:
+
+```{r sd_example_2}
+vector_3 #Print specified vector for preview.
+sd(vector_3) # Applying the standard deviation calculation to specified vector. Result is 'NA' due to some NA values. 
+sd(vector_3, na.rm = TRUE) # Similar to other computational function, na.rm is used to inform R to remove the NA value before computing the mean. Result is a desired numerical value.
+```
+
+- Next example shows how to calculate the standard deviation for a real data set. We will use the *palmerpenguins* data set for exploration.
+
+```{r sd_example_3}
+
+head(penguin_dat) # Print head rows of the specified data set.
+sd(penguin_dat$bill_length_mm) # Apply the standard deviation to a specified data variable using the $ symbol. Once again, there was an NA value in this variable. 
+sd(penguin_dat$bill_length_mm, na.rm = TRUE) # Inform R not to calculate NA values. Result is a numerical value. 
+```
 
 
 # Functions 3: Graphical Data Exploration {.tabset .tabset-pills}
 
-See the final project description for a list of the required functions.
+One of the main reasons for using R is for its graphic capabilities of data. 
+Several types of graphing styles will be shown here, including scatterplots, histograms, and boxplots. 
 
 ## 'plot()'
 
-I can use 'plot()' to create scatter plots. 
+The *'plot()'* function is used to create scatter plot diagrams of data. 
+
+- The first example will show how to create a very quick scatterplot, using the *palmerpenguins* data set.
 
 ```{r scatterplot_1, fig.asp=0.7, fig.height=20}
-# load the penquins package:
-require(palmerpenguins)
-# using formula notation
-# i can use pch argument to change the symbol
-plot(
-  bill_length_mm ~ body_mass_g, 
-  data = penguins,
-  pch = 16)
-
+require(palmerpenguins) # Load the penguins package
+plot(bill_length_mm ~ body_mass_g, # # First variable specifies the x direction, Second variable specifies the y direction of the graph
+     data = penguins)# Specify data set
 ```
 
-## 'boxplot()'
+- The following example will show how to create a more developed scatterplot, using the same *palmerpenguins* data set. Additionally, this example will adjust the x and y limits of the graph. 
+
+```{r scatterplot_2, fig.asp=0.7, fig.height=20}
+plot(
+  bill_length_mm ~ body_mass_g, # First variable specifies the x direction, Second variable specifies the y direction of the graph
+  data = penguins, # Specify data set
+  main = "Penguin Data Example 1 Scatterplot", #Specify the title of the graph
+  xlab = "Body Mass", # Specify name of the x coordinate
+  ylab = "Bill Length", # Specify name of the y coordinate,
+  col = "purple", # Specify color, otherwise black
+  pch = 16, #pch numbers represent different graphical symbols
+  xlim = c(2500,6500), # Adjusts the x coordinate limit
+  ylim = c(20,70)) # Adjusts the y coordinate limit
+```
+
+- This second example also creates a scatterplot, where the x and y coordinates are individually specified as vectors ahead of being called in the plot function. This method is a little bit more involved. We will use the same *palmerpenguins* data set. This example will change the color, type of symbol and its size. 
+
+```{r scatterplot_3, fig.asp=0.7, fig.height=20}
+
+x <- c(penguins$bill_length_mm) # Create a vector for x coordinate
+y <- c(penguins$body_mass_g) # Create a vector for y coordinate
+
+plot(
+  x, y, # Informs R to plot x vector against the y vector, as specified
+  data = penguins, 
+  main = "Penguin Data Example 2 Scatterplot", 
+  xlab = "Body Mass", 
+  ylab = "Bill Length", 
+  col = "red",
+  pch = 12, #pch numbers represent different graphical symbols
+  cex = .4, # cex specifies the size of symbol
+  frame = TRUE) # Removes the boxed frame
+```
+
+- Scatter plots, while visually indicating a trend or relationship direction of data by nature, are typically developed in order to derive a slope line, also called a regression line. The regression line is a linear, mathematical relationship between the specified data of the scatter plot. R can derive the regression line with a simple script, as shown in the example below. 
+
+```{r scatterplot_4, fig.asp=0.7, fig.height=20}
+
+plot(
+  flipper_length_mm ~ body_mass_g, #This example specified the flipper length and body mass variables
+  data = penguins, 
+  main = "Penguin Flipper Length vs. Body Mass", 
+  xlab = "Flipper Length (mm)", 
+  ylab = "Body Mass (g)", 
+  col = "purple", 
+  pch = 16,
+  frame = FALSE,
+  xlim = c(2500,6500), 
+  ylim = c(160,240))
+
+abline(lm(flipper_length_mm~body_mass_g, data=penguins), col="red") #Regression line script - we specified "lm" for linear model, the specified variables from the scatter plot, the data set, and a color for the line which is optional.
+
+```
 
 
 ## 'hist()'
 
+The *'hist()'* function is used to create histogram diagrams of data. Histograms are a good choice of graphing style when general distribution of a variable is analyzed. 
 
-## 'par()' and 'mrow()'
+- The first example will show how to create a very quick, single step histogram, using the *palmerpenguins* data set:
+
+```{r histogram_1, fig.asp=0.7, fig.height=20}
+hist(penguins$body_mass_g) # Specify data set and one variable which to graph. Histograms indicate specified variable in the x coordinate and frequency (or count) as default in the y coordinate. If frequency is set to FALSE, the y coordinate graphs density. 
+```
+
+- The second example illustrates a more developed histogram of the same data:
+
+```{r histogram_2}
+hist(penguins$body_mass_g, 
+     breaks = 50, # Designates the number of breaks between bars along the x axis. This may provide a more detailed variation for the numerical trend of the graph.
+     main = "Penguin Body Mass Histogram", #Specify the title of the graph
+     xlab = "Body Mass (g)",# Specify name of the x coordinate
+     ylab = "Count", # Specify name of the y coordinate
+     col = "yellow", # Specify color
+     xlim = c(2000,7000), # Adjusts the x coordinate limit
+     ylim = c(0, 30)) # Adjusts the y coordinate limit
+```
+
+- Additionally, histograms can be used to develop density plots, which are curve representations of the variations in data.
+
+```{r histogram_3}
+plot(density
+     (penguins$body_mass_g, # Specify data set and one variable which to graph.
+       na.rm = TRUE), #Inform R to remove the NA value before computing the mean for the curve.
+     main = "Penguin Mass Density Plot", #Specify the title of the graph
+     col = "blue", #Specify the color
+     frame = FALSE) #Specify no box frame
+```
+
+
+## 'boxplot()'
+
+The *'box()'* function is used to create box plot diagrams of data. This type of graphical mapping shows the shape of data distribution, its central value indicated by the black bar, and also its variability indicated by the lowermost and uppermost boundaries of the box. Additionally, boxplots can compare several sets of data in a single representation of data, which is why they are very useful. 
+
+- The first example of the box plot will illustrate a very simple, single variable analysis. Using the *palmerpenguins* data set, we will graph penguin body mass conditioned on a single variables: species. 
+
+```{r boxplot_example_1}
+summary(penguins) # Print summary of specified data set to see which variables may be of interest to graphically analyze.
+boxplot(body_mass_g~species, # Specify two variables.
+        data = penguins) # Specify data set.
+```
+
+- The second example is of a *conditional* box plot, which illustrates several variables for analysis. Using the *palmerpenguins* data set, we will graph penguin body mass conditioned on two variables: species and sex. 
+
+```{r boxplot_example_2}
+boxplot(body_mass_g ~ sex * species, # Specify three variables.
+        data = penguins) # Specify data set.
+```
+
+- Some additional scripts that can be used with box plots to enhance the representation of data:
+
+```{r boxplot_example_3}
+boxplot(body_mass_g ~ sex * species, # Specify three variables.
+        data = penguins, # Specify data set.
+        main = "Penguin Body Mass Conditional Box Plot", # Specify title.
+        xlab = "Species and Sex", # Specify conditional variables.
+        ylab = "Body Mass (g)", # Specify conditional variables.
+        frame = FALSE, # Specify no box frame of graph, otherwise TRUE as default
+        notch = TRUE, # Specify notch, otherwise FALSE as default; helps strongly visualize the mean
+        col = (c("red", "orange"))) # Specify colors.
+```
+
+## 'par()' 
+
+The *'par()'* function tiles several graphs into a single graphical representation. 
+
+- Including the function *'mfrow=c(nrows, ncols)'* creates a matrix of nrows (number of rows) by ncols (number of columns) plots that are filled in by row. Otherwise, including the function *'mfcol=c(nrows, ncols)'* fills in the matrix by columns. 
+
+- An example of how to use the *'par()'* function with the *mfrow=c(2,2)'* function is shown below:
+
+```{r par_example_1}
+
+attach(penguins) # Specify data set. 
+par(mfrow=c(2,2)) # Specify 4 figures arranged in 2 rows and 2 columns.
+
+plot(
+  flipper_length_mm ~ body_mass_g, 
+  data = penguins, 
+  main = "Penguin Flipper Length vs. Body Mass", 
+  xlab = "Flipper Length (mm)", 
+  ylab = "Body Mass (g)", 
+  col = "purple", 
+  pch = 16,
+  frame = FALSE,
+  xlim = c(2500,6500), 
+  ylim = c(160,240))
+
+abline(lm(flipper_length_mm~body_mass_g, data=penguins), col="red")
+
+plot(
+  bill_length_mm ~ body_mass_g, 
+  data = penguins, 
+  main = "Penguin Bill Length vs. Body Mass", 
+  xlab = "Bill Length (mm)", 
+  ylab = "Body Mass (g)", 
+  col = "purple", 
+  pch = 16, 
+  frame = FALSE,
+  xlim = c(2500,6500), 
+  ylim = c(20,70))
+
+abline(lm(bill_length_mm~body_mass_g, data=penguins), col="red")
+
+boxplot(body_mass_g ~ sex * species, 
+        data = penguins, 
+        main = "Penguin Body Mass Conditional Box Plot",
+        xlab = "Species and Sex", 
+        ylab = "Body Mass (g)", 
+        frame = FALSE, 
+        notch = TRUE, 
+        col = (c("red", "red", "orange", "orange", "yellow", "yellow")))
+
+boxplot(body_mass_g ~ sex * species, 
+        data = penguins, 
+        main = "Penguin Bill Length Conditional Box Plot",
+        xlab = "Species and Sex", 
+        ylab = "Bill Length (mm)",
+        frame = FALSE, 
+        notch = TRUE, 
+        col = (c("red", "red", "orange", "orange", "yellow", "yellow")))
+```
+
 
 # Functions 4: Distribution Functions {.tabset .tabset-pills}
 
-See the final project description for a list of the required functions.
+This section introduces some of the most commonly used probability distribution functions. 
+A probability distribution function describes the likelihood of obtaining the possible values that a random variable can assume. These equations are divided into two categories, the normal and binomial distribution functions. 
 
+The main difference between normal and binomial distribution functions is that they answer different types of questions. Normal distribution functions provide probability of a *single trial outcome* while the binomial distribution functions provide probability or *one or multiple trials* to answer the same questions, with each trial run being independent of the previous. 
+
+The different types of questions these functions can answer are defined by the *“d”*, *“p”* and *“q”*	prefix in the function scripts. 
+
+- For the normal distribution, these functions are explained: *dnorm*, *pnorm* and *qnorm*. 
+- For the binomial distribution, these functions are explained: *dbinom*, *pbinom* and *qbinom*.
+
+- These three different commands for each distribution type indicate the following functions:
+  - *“d”*	returns the height of the probability density function
+  - *“p”*	returns the cumulative density function
+  - *“q”*	returns the inverse cumulative density function (quantiles)
+
+- Normal distribution functions have 2 parameters: *µ* (mean) and *σ* (sd or standard deviance)
+   - The Standard Normal distribution has µ = 0 and σ = 1
+   - The mean moves the curve left or right.
+   - The standard deviation σ controls the width and flatness.
+  
+- Binomial distribution functions work just like the normal distribution commands. However, they have 2 additional parameters: *n* (number of trials, referred to as *"size"*) and *p* (probability of success for a single trial, referred to as *"prob"* in the script). For the number of trials, the value must be an integer in order for these functions to work.
+
+
+## 'dnorm()'
+
+*dnorm(x, mean, sd)*
+
+The *'dnorm()'* function returns the height of the probability distribution at each point of the data set, given the three parameters x (or independent variable), mean, and sd (or standard deviation). The *"d"* in dnorm stands for *"density."* Thus, the command dnorm is designed to provide values of the probability density function for the normal distribution.
+
+- Mean = 0 and sd = 1 are the default arguments for the *'dnorm()'* function, shown in the simple example below:
+
+```{r dnorm_example_1}
+dnorm(0) #x value is specified as zero, mean = 0 and sd = 1 by default.
+dnorm(0, mean = 0, sd = 1) # This function can be written like this. 
+dnorm(0, 0, 1) # This function can also be written like this as well.
+```
+
+- The next example will perform the *'dnorm()'* function using a normally distributed vector of x variables to show a normal distribution function.  This example assumes the mean = 0, and sd = 1
+
+```{r dnorm_example_2}
+x_dnorm <- seq(- 5, 5, by = 0.05) # Create a sequence of equally spaced numbers between specified values.
+y_dnorm <- dnorm(x_dnorm) # Apply the dnorm function
+plot(x_dnorm, y_dnorm, # Plot dnorm values
+     type="l", # Specifies a line type graph, default is open circle points
+     lwd=2, # Specifies line thickness
+     col ="blue", # Specifies line color
+     xlab = "X", # Specifies x-axis title
+     ylab = "Y") # Specifies y-axis title
+axis(1, at = -5:5) #Specify x-axis values
+```
+
+- The next example will perform the same *'dnorm()'* function while altering the mean and sd values to show it's impact on the graphed curve. A lower mean value shifts the curve (shifting the mean value) to the left. The higher sd value widens and flattens the curve. 
+
+```{r dnorm_example_3}
+x_dnorm <- seq(- 5, 5, by = 0.05) 
+y_dnorm <- dnorm(x_dnorm, mean = -1, sd = 2) # Apply the dnorm function, specify mean and sd values.
+plot(x_dnorm, y_dnorm,
+     type="l", 
+     lwd=2, 
+     col ="blue",
+     xlab = "X", 
+     ylab = "Y") 
+axis(1, at = -5:5) 
+```
+
+- This function is useful in deriving a likelihood probability for a specific value. An example that was learned in class referenced a fish population, and this function was used to answer a question such as: *"Is catching a fish 6cm length more likely than catching a fish of 14.5cm length"?*
+Looking at a normal distribution graph, and locating the x value of both 6 and 14.5, the y-axis value can be derived which indicates that percentage probability. Results of this example indicated that for an x=6, the y (or the f(x)) was 0.04, while for an x=14.5, the y value was .07, meaning that catching a length of 14.5 was more likely.
+
+## 'pnorm()'
+
+*pnorm(q, mean, sd, lower.tail)*
+
+The *'pnorm()'* function computes the probability that a normally distributed random number will be less than that number. This function is also referred to as the *“Cumulative Distribution Function.”* It accepts the same options as dnorm, and calculates the probability as the cumulative area under the distribution curve. The total area under the curve is always equal to 1, or 100% probability. The *lower.tail* variable in the command is logical. When *TRUE* (which is default), it implies probability of less than or equal to x (or *q*), and when *FALSE*, it implies greater than or equal to x (or *q*). 
+
+- Unlike the dnorm, which calculates a definite y value for each exact value of x, the pnorm is used when we are interested in probability of all values of x that are less than a specified value. 
+
+- Similar to dnorm, Mean = 0 and sd = 1 are the default arguments for the *'pnorm()'* function, shown in the simple example below. Result will always be .5 in this example, as there is 50% probability of values being within the first half of the area underneath the normal distribution curve.
+
+```{r pnorm_example_1}
+pnorm(0) #x value is specified as zero, mean = 0 and sd = 1 by default.
+pnorm(0, mean = 0, sd = 1) # This function can be written like this. 
+pnorm(0, 0, 1) # This function can also be written like this as well.
+```
+
+- The next example will perform the *'pnorm()'* function using a previously developed normal distribution curve. This example assumes the mean = 0, and sd = 1
+
+```{r pnorm_example_2}
+x_dnorm <- seq(- 5, 5, by = 0.05) # Repeat the normal distribution curve from previous example first
+y_dnorm <- dnorm(x_dnorm) 
+plot(x_dnorm, y_dnorm, 
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") 
+axis(1, at = -5:5) 
+
+x_pnorm <- seq(-5, 1, by = 0.05) # Create a sequence of equally spaced numbers between specified values for the pnorm function. In this example we are interested in values of x < 1.
+y_pnorm <- dnorm(x_pnorm) #Apply dnorm function
+polygon(c(-5,x_pnorm, 1),c(0,y_pnorm,0),col="red") # Plot dnorm function as an area under the curve. We selected cumulative area of x < 1. 
+```
+
+- To verify this illustrated concept:
+
+```{r pnorm_example_3}
+pnorm(1, 0, 1) # Verify this graphic example. Result is that the probability of x being less than 1 is 84%. Our graph looks correctly done as a visual representation of this concept.
+```
+
+- This function is useful in deriving a likelihood probability between two values, or a range of values. An example that was learned in class referenced a fish population, and this function was used to answer a question such as: *"What is the probability of of catching a fish that weighs 153 grams of less"?*
+Looking at a normal distribution graph, locating the x value of 153, and calculating the area underneath the curve from that specified value to the left resulted in a value of 0.6 or 60%. 
+
+- An important nuance is that this function always calculates the entire area to the left of a specified x value. So, if we are looking for a range between two values, we would have to subtract the smaller area to the left of the specified range value from a larger area to the left of the second range value. An example of this is shown below:
+
+```{r pnorm_example_4}
+
+x_dnorm <- seq(- 5, 5, by = 0.05) # Repeat the normal distribution curve from previous example first
+y_dnorm <- dnorm(x_dnorm) 
+plot(x_dnorm, y_dnorm, 
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") 
+axis(1, at = -5:5) 
+
+x_pnorm <- seq(-1, 1, by = 0.05) 
+y_pnorm <- dnorm(x_pnorm) 
+polygon(c(-1,x_pnorm, 1),c(0,y_pnorm,0),col="red") # Plot dnorm function as an area under the curve. We selected cumulative range area of -1 < x < 1. 
+```
+
+- To verify this illustrated concept:
+
+```{r pnorm_example_5}
+pnorm(1, 0, 1) - pnorm (-1, 0, 1) # Verify this graphic example. Result is that the probability of a range of x being between values of -1 and 1 is 68%. Our graph looks correctly done as a visual representation of this concept.
+```
+
+## 'qnorm()'
+
+*qnorm(p, mean, sd, lower.tail)*
+
+The *'qnorm()'* function computes the inverse of the pnorm function. The input is the desired percentile of probability and the output is the range of x values that meets that percentile. The *lower.tail* variable in the command is logical. When *TRUE* (which is default), it implies probability of less than or equal to x (or *p*), and when *FALSE*, it implies greater than or equal to x (or *p*). 
+
+- Similar to dnorm, and pnorm functions, Mean = 0 and sd = 1 are the default arguments for the *'qnorm()'* function, as shown in the simple example below.
+
+```{r qnorm_example_1}
+qnorm(.9) #probability value is specified as 90%, mean = 0 and sd = 1 by default.
+qnorm(.9, mean = 0, sd = 1) # This function can be written like this. 
+qnorm(.9, 0, 1) # This function can also be written like this as well.
+```
+
+- It must be emphasized that the area under the curve to the left is used when applying both commands *pnorm* and *qnorm*. If we are to solve for an area to the right of an x value, we must perform a similar subtraction process, where we subtract that percentage input from a value of 1, or 100%.
+
+- This function is useful in deriving a range of values values, or a range of values. An example that was learned in class referenced a fish population, and this function was used to answer a question such as: *"What is the 90th percentile of fish lengths?* or, in other words, *What length will 90% of the fish population be lower than?*
+Looking at a normal distribution graph, locating the x value at 90% of shaded area underneath the curve derived an x value of 13.28, meaning that 90% of the fish is 13.28 mm long or less. 
+
+## 'dbinom()'
+
+*dbinom(x, size, prob)*
+
+Similar to normal distribution functions, the *'dbinom()'* function gives the density. It helps us find the individual probabilities as well as a range of individual probabilities. In other words, it will provide the probability of a number of successful trials (*x*), from a number of total trials (*size*), based on a probability of the positive result of each trial (*prob*). 
+
+- The *'dbinom()'* function example is shown below. We will ask the probability of obtaining 10 or less successful outcomes, with a trial size of 10 and probability of 20%. The follow up scripts will increase the probability and the number of trials for comparison. 
+
+```{r dbinom_example_1}
+
+dbinom(10, 10, 0.2) # This function asks for a exactly 10 successful outcomes.
+dbinom(10, size = 10, prob = .2) # This function can be written like this. 
+dbinom(10, 10, .2) # This function can also be written like this as well.
+
+dbinom(10, 10, .6) # Changing the probability for comparison
+
+dbinom(10, 20, .2) # Changing the size, or number of trials, for comparison
+
+dbinom(10, 20, .6) # Changing the size and probability for comparison
+
+dbinom(0:10, 10, .2) #We can also ask for a range of 10 or less successful outcomes using a function like this. The second example below will graphically illustrate these ranges.
+
+```
+
+-The following example will plot these concepts into line graphs, for illustrative comparisons:
+
+```{r dbinom_example_2}
+x_dbinom <- seq(0, 10, by = 1) # Create a sequence of equally spaced numbers between specified values.
+
+y_dbinom <- dbinom(x_dbinom, size = 10, prob = .2) # Apply the dbinom function.
+plot(x_dbinom, y_dbinom, # Plot dbinom values.
+     type="l", # Specifies a line type graph, default is open circle points.
+     lwd=2, # Specifies line thickness.
+     col ="blue", # Specifies line color.
+     xlab = "X", # Specifies x-axis title.
+     ylab = "Y") # Specifies y-axis title.
+
+dbinom(0:10, 10, .2) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+y_dbinom <- dbinom(x_dbinom, size = 10, prob = .6) # Changing the probability for comparison.
+plot(x_dbinom, y_dbinom, 
+     type="l", 
+     lwd=2, 
+     col ="red", 
+     xlab = "X", 
+     ylab = "Y") 
+
+dbinom(0:10, 10, .6) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+y_dbinom <- dbinom(x_dbinom, size = 20, prob = .2) # Changing the size for comparison.
+plot(x_dbinom, y_dbinom, 
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") 
+
+dbinom(0:10, 20, .2) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+y_dbinom <- dbinom(x_dbinom, size = 20, prob = .4) # Changing the size and probability for comparison.
+plot(x_dbinom, y_dbinom, 
+     type="l", 
+     lwd=2, 
+     col ="red",
+     xlab = "X", 
+     ylab = "Y") 
+
+dbinom(0:10, 10, .4) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+```
+
+- A more practical example of where the *'dbinom()'* function can be used is the following:
+
+  - Let's say that there are 20 multiple choice questions in test, and that each of the 20 questions has 4 possible multiple choice answers and only one option is correct - meaning that there is 25% probability of getting each question right. We wish to find the probability of having an A on this test, which would require a result of 90% correct and above. This means we would need to answer 18 of the questions correct. If we were to not study, have no familiarity with any content on this test, and select answers at random, what would be the chance of getting 18 questions right?
+
+```{r dbinom_example_3}
+dbinom(18, size=20, prob=.25) # The result is still 0% chance. 
+```
+
+  -Let's say we just wish to pass the test with a grade C at 60% correct answers. This would require 12 answers to be correct. 
+```{r dbinom_example_4}
+dbinom(12, size=20, prob=.25)# The result is still 0% chance. We would have to study for this test.
+```
+  
+  - Lastly, let's say we wish to find what the individual success rates for each question would be if we were to be successful with 18 or less questions:
+  
+```{r dbinom_example_5}
+dbinom(0:12, size = 20, prob=.25)
+
+x_dbinom_2 <- seq(0, 18, by = 1) # Create a sequence of equally spaced numbers between specified values.
+y_dbinom_2 <- dbinom(x_dbinom_2, size = 20, prob = .25) # Apply the dbinom function.
+plot(x_dbinom_2, y_dbinom_2, # Plot dbinom values.
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") 
+```
+  
+  - We can graphically see that the each x value representing each of the 20 questions has its correct answer probability indicated by the y value. Similar to the normal distribution functions, the total area underneath the curve sums up to 1 or 100%, which leads us to the next section, the cumulative binomial function. 
+  
+## 'pbinom()'
+
+*pbinom(q, size, prob, lower.tail)*
+
+Similar to normal distribution functions, *'pbinom()'* function gives the distribution function. This function will provide the probability of *less than or equal to* or *greater than or equal to* successful trials (*q*) from a number of total trials (*size*), and a probability of a positive outcome (*prob*). The *lower.tail* variable in the command is logical. When *TRUE* (which is default), it implies probability of less than or equal to x (or *q*), and when *FALSE*, it implies greater than or equal to x (or *q*). 
+
+This binomial distribution helps us to find the cumulative probabilities over a certain range (which are also a sum of the individual range probabilities derived by the previous, *'dbinom()'* function)
+
+- Referring back to the practical example from the *'dbinom()'* function section, we will show how the sum of individual successes is the same as using the cumulative *'pbinom()'* function. 
+
+```{r pbinom_example_1}
+dbinom(0:12, size = 20, prob=.25) # Individual success rates for 12 or less questions. 
+sum (dbinom(0:12, size = 20, prob=.25)) # Cumulative probability for 12 or less questions' success rates. Result happens to be 99%
+sum (dbinom(0:4, size = 20, prob=.25)) # Cumulative probability for only 4 or less questions' success rates. This result is 41%.
+sum (dbinom(0:20, size = 20, prob=.25)) # Cumulative probability for all 20 questions' success rates always equals to 1, or 100%. 
+```
+
+- The *'pbinom()'* function example is shown below. We will ask the cumulative probability of obtaining 10 or less successful outcomes, with a trial size of 20 and probability of 20%. The follow up scripts will increase the probability and the number of trials for comparison.
+
+```{r pbinom_example_2}
+
+pbinom(10, 20, 0.2) # This function asks for a exactly 10 successful outcomes.
+pbinom(10, size = 10, prob = .2) # This function can be written like this. 
+pbinom(10, 10, .2) # This function can also be written like this as well.
+
+pbinom(10, 10, .6) # Changing the probability for comparison
+
+pbinom(10, 20, .2) # Changing the size, or number of trials, for comparison
+
+pbinom(10, 20, .6) # Changing the size and probability for comparison
+
+pbinom(0:10, 10, .2) #We can also ask for a range of 10 or less successful outcomes using a function like this. The next example below will graphically illustrate these ranges.
+```
+
+-The following example will plot these concepts into line graphs, for illustrative comparisons:
+
+```{r pbinom_example_3}
+x_pbinom <- seq(0, 10, by = 1) # Create a sequence of equally spaced numbers between specified values.
+
+y_pbinom <- pbinom(x_pbinom, size = 10, prob = .2) # Apply the pbinom function.
+plot(x_pbinom, y_pbinom, # Plot pbinom values.
+     type="l", # Specifies a line type graph, default is open circle points.
+     lwd=2, # Specifies line thickness.
+     col ="blue", # Specifies line color.
+     xlab = "X", # Specifies x-axis title.
+     ylab = "Y") # Specifies y-axis title.
+
+pbinom(0:10, 10, .2) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+y_pbinom <- pbinom(x_pbinom, size = 10, prob = .6) # Changing the probability for comparison.
+plot(x_pbinom, y_pbinom, 
+     type="l", 
+     lwd=2, 
+     col ="red", 
+     xlab = "X", 
+     ylab = "Y") 
+
+pbinom(0:10, 10, .6) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+y_pbinom <- pbinom(x_pbinom, size = 20, prob = .2) # Changing the size for comparison.
+plot(x_pbinom, y_pbinom, 
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") 
+
+pbinom(0:10, 20, .2) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+
+y_pbinom <- pbinom(x_pbinom, size = 20, prob = .4) # Changing the size and probability for comparison.
+plot(x_pbinom, y_pbinom, 
+     type="l", 
+     lwd=2, 
+     col ="red",
+     xlab = "X", 
+     ylab = "Y") 
+
+pbinom(0:10, 10, .4) #The resulting answers correspond with the y-axis probability for each x value in the range from 0 to 10.
+```
+
+-A practical example of the *'pbinom()'* function is the following:
+  - Let's say that there is a vaccine with success rate of 95%, and that we have a group of 20 people. We wish to know what is the probability that all 400 or fewer people will respond positively to this vaccine. 
+  
+```{r pbinom_example_4}
+pbinom(400, 400, .95) #Result is 1 or 100%. This doesn't give us a full picture because if any number lower than 400 is considered a success, the result is obviously 100%. 
+```
+  
+  - Thus, we need to find the individual probabilities of a range between 0 to 400 people from a group of 400 who will respond positively to this vaccine. We will graph two scenarios, one with success rate at 95%, and second at a lower success at 60%. 
+  
+```{r pbinom_example_5}
+pbinom(0:400, 400, .95) #Result is 100%, implying that this vaccine is safe.
+
+x_pbinom <- seq(1,400, by = 1)
+y_pbinom <- pbinom(x_pbinom,400, .95)
+plot(x_pbinom, y_pbinom, # Plot pbinom values.
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") # Results show that about 380 people will respond positively to the vaccine.
+
+x_pbinom <- seq(1,400, by = 1)
+y_pbinom <- pbinom(x_pbinom,400, .60)
+plot(x_pbinom, y_pbinom, # Plot pbinom values.
+     type="l", 
+     lwd=2, 
+     col ="blue", 
+     xlab = "X", 
+     ylab = "Y") # Results show that about 220 people will respond positively to the vaccine.
+```
+
+
+## 'qbinom()'
+
+*qbinom(p, size, prob, lower.tail)*
+
+Similar to normal distribution functions, the *'qbinom()'* function gives the quantile. Also, similar to normal distribution functions, this quantile function is the opposite of *'pbinom()'*. It provides the number of successful trials less than or equal to a probability *p* of a positive outcomes, the *size* of the total number of trials, and the probability of a positive trial *prob*. The *lower.tail* variable in the command is logical. When *TRUE* (which is default), it implies probability of less than or equal to x (or *p*), and when *FALSE*, it implies greater than or equal to x (or *p*).
+
+- The *'qbinom()'* function example is shown below. Referring to the previous example, as this function is the inverse of *'pbinom()'*, we will ask for the bottom 20% of outcomes with the 95% success rate and 400 patients, and also with the 60% success rate and 400 patients who responded positively to this vaccine.
+
+```{r qbinom_example_1}
+qbinom(.20, 400, .95) # Result was 376 persons. This was very close to our visual estimate of the plotted graph.
+qbinom(.20, 400, .6) # Result was 232 persons. This was also very close to our visual estimate of the plotted graph.
+
+#These results state that in 20% of the trials, the above number results of people will have a positive response to the vaccine given its clinical success rates of 95% and 60%. 
+```
+
+- If we wanted to calculate the bottom quantile of 99.9% of outcomes for the same success rates and number of patients, we would run the following script:
+```{r qbinom_example_2}
+qbinom(.999, 400, .95) # Result was 392 persons. This was very also close to our visual estimate of the plotted graph.
+qbinom(.999, 400, .6) # Result was 270 persons. This was also very close to our visual estimate of the plotted graph. 
+```
 
 
 # Functions 5: Other Functions {.tabset .tabset-pills}
 
-See the final project description for a list of the required functions.
+## 'subset()'
+
+The *'subset()'* function is used as an indexing feature for accessing object elements. It can be used to select and filter variables and observations. This is particularly useful for large data sets. This function selects specified rows and columns from a data frame, and creates a vector of these values that can be used in subsequent scripts for a narrower data set analysis. 
+
+- An example of the *'subset()'* function is shown below, using the existing data of the *palmerpenguins* data set.
+```{r subset_example_1}
+summary(penguins) # Summary of the "palmerpenguins' data set. 
+
+subset(penguins, species == "Chinstrap") #Subset of the Chinstrap species
+chinstrap <- subset(penguins, species == "Chinstrap") #Subset of the Chinstrap species placed in vector
+
+subset(chinstrap, sex == "female") # Subset of the Chinstrap species female sex
+female_chinstrap <- subset(chinstrap, sex == "female") # Subset of the Chinstrap species female sex placed in a vector
+```
+
+## 'libary() and require()'
+
+R packages are a collection of R functions, which include complied code and sample data, and are stored under a directory called *library* in the R environment. By default, R installs a set of packages during installation. 
+
+Running the *'library()'* function empty lists all the available packages, installed by default. Running this function with a specified package will prompt and error message if it is not available or load into project if it is available. Similarly, running the *'require()'* function for a particular package, loads that specified package into a project in R. The main difference is the phrasing of the error code in case the requested package is not installed, and that the library function by itself opens a new window in R with a full list of all available data sets to choose from.
+
+-An example of these two functions using the *palmerpenguins* data set is shown below:
+
+```{r library_and_require_example_1, error = TRUE}
+
+library() # This script opens a new window in R studio listing all the available packages. This is useful for a preview of all available data set titles and brief descriptions. We can see that palmerpenguins is available. 
+
+library(palmerpenguins)# This script, with the direct input of the data set we are interested in, will output an error message if this data set is not installed.
+
+library(xyz) # In this example, as the data set "xyz" does not exist, an error message is displayed.
+
+require(palmerpenguins) # This script loads this available data set into the project. 
+
+require(xyz) # In this example, as the data set "xyz" does not exist, an error message is displayed.
+
+```
 
 
+## 'read.csv()'
 
+The *'read.csv()'* function tells R where to locate the data file for analysis. There are two ways to get to a file in R, first using a relative path and second using an absolute path. 
+
+
+- An example of how to use the *'read.csv()'* function is explained in the example below:
+
+```{r here_example_1}
+
+require("here") # Loading this script from R package library which will help set the origin directory
+
+here("data", "hab.sta.csv") # This function helps locate the "data" folder directory when it cannot be found and is set someplace outside of the R project directory. The output will provide the absolute path to the file. 
+
+file.exists(here("data", "hab.sta.csv")) # This scripts verifies the location of the data file and its directory. The output is TRUE in this case.
+
+read.csv(here("data", "hab.sta.csv")) # This script embeds the here command into the read.csv command, it tells R where the data file and its directory are and to read the data file in a single step script. 
+
+dat_habitat<- read.csv(here("data", "hab.sta.csv")) # This script creates a data frame of the imported data file
+```
 
 # Part 2: Data Anaylsis
 
-Your data analysis materials will go here.
+This section will demonstrate how to run a complete data set analysis, and will use the *Delomys* species data for all sections. 
+
+## Numerical Exploration
+
+This section will perform the *'summary()'* script for the body mass and body length data columns of the *Delomys* data set in order to display summary of these statistics. It will also run the test of normality for both subsets of data using the *'shapiro.test()'*. 
 
 
-## R Markdown
+```{r}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+delomys= read.csv("https://michaelfrancenelson.github.io/eco_602_634_2020/data/delomys.csv") # Load the data set into R.
+head(delomys) # Preview the data set for only first few rows. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+delomys_bodymass <- subset(delomys, select ="body_mass") # Subset of the body mass data paced into a vector.
+head(delomys_bodymass) # Preview body mass data.
+summary(delomys_bodymass) # Perform summary of the body mass data.
 
-```{r cars}
-summary(cars)
+summary(delomys$body_mass) # This is a second method to run the summary of body mass data. 
+
+shapiro.test(delomys$body_mass) # Run normality test for this set of data. 
+
+delomys_bodylength <- subset(delomys, select="body_length") # Subset of the body length data paced into a vector.
+head(delomys_bodylength) # Preview body length data.
+summary(delomys_bodylength) # Perform summary of the body length data.
+
+shapiro.test(delomys$body_length) # Run normality test for this set of data. 
+
 ```
 
-## Including Plots
+## Graphical Exploration {.tabset .tabset-pills}
 
-You can also embed plots, for example:
+The first part of this section will create several types of plots, including scatterplots, histograms and conditional boxplots for various subsets of the *Delomys* data. The second part of this section will present and answer a set of related questions.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+### Scatterplots
+
+#### Scatterplot of Delomys *body mass* and *body length*:
+
+```{r scatterplot_5, fig.asp=1, fig.width=10, fig.height=12}
+
+plot(
+  body_length ~ body_mass, 
+  data = delomys, 
+  main = "Delomys Body Length vs. Body Mass Scatterplot", 
+  xlab = "Body Length (mm)", 
+  ylab = "Body Mass (g)", 
+  col = "purple", 
+  pch = 16,
+  frame = FALSE,
+  xlim = c(0,100), 
+  ylim = c(0,250))
+
+abline(lm(body_length~body_mass, data=delomys), col="red") #Regression line
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Observing this scatterplot, we can see that there is a linear relationship between these two variables, that as body length of Delomys increases, their body mass also increases.
+
+### Histograms
+
+#### Histogram of Delomys *body mass*:
+
+```{r histogram_4, fig.asp=1, fig.width=10, fig.height=6}
+hist(delomys$body_mass, 
+     main = "Delomys Body Mass Histogram",
+     xlab = "Body Mass (g)", 
+     col = "purple", 
+     breaks = 20, 
+     xlim = c(0, 120), 
+     ylim = c(0, 300)) 
+```
+
+Observing this histogram, we can see that the predominant weight of Delomys is between 30-70g.** 
+
+#### Histogram of Delomys *body length*:
+
+```{r histogram_5, fig.asp=1, fig.width=10, fig.height=6}
+hist(delomys$body_length, 
+     main = "Delomys Body Length Histogram",
+     xlab = "Body Length (mm)", 
+     col = "purple", 
+     breaks = 20, 
+     xlim = c(0, 300), 
+     ylim = c(0, 650)) 
+```
+
+Observing this histogram, we can see that the predominant length of Delomys is between 100-130mm.
+
+### Boxplots 
+
+#### Conditional boxplot of *body mass*, conditioned on *sex*:
+
+```{r boxplot_example_5, fig.asp=1, fig.width=10, fig.height=6}
+
+boxplot(body_mass ~ sex,
+        data = delomys, 
+        main = "Delomys Body Mass vs. Sex Boxplot", 
+        xlab = "Delomys", 
+        ylab = "Body Mass (g)",
+        ylim = c(0, 120),
+        frame = FALSE,
+        notch = TRUE, 
+        col = (c("red", "orange")))
+```
+
+Observing this boxplot, we can see that, generally among all Delomys species, males are slightly heavier than males.
+
+#### Conditional boxplot of *body mass*, conditioned on both *species* and *sex*:
+
+```{r boxplot_example_6, fig.asp=1, fig.width=10, fig.height=6}
+
+boxplot(body_mass ~ binomial * sex, 
+        data=delomys,
+        main = "Delomys Body Mass vs. Species and Sex",
+        xlab = "Delomys Species And Sex",
+        ylab = "Body Mass (g)",
+        ylim = c(0, 120),
+        frame = FALSE,
+        notch = TRUE,
+        names = c("D.dorsalis - F", "D.sublineatus - F", "D.dorsalis - M", "D.sublineatus - M"),
+        col = (c("red", "orange", "red", "orange")))
+     
+```
+
+The body mass boxplot, which is conditioned on both species and sex, gives us a better understanding in the comparison of body mass associated with genders of specific species. We can see that the *Delomys dorsalis* females are heavier than *Delomys sublineatus* females, and a similar pattern for the males where the *Delomys dorsalis* males are heavier than the *Delomys sublineatus* males.
+
+#### Conditional boxplot of *body length*, conditioned on both *species* and *sex*:
+
+```{r boxplot_example_7, fig.asp=1, fig.width=10, fig.height=6}
+
+boxplot(body_length ~ binomial * sex, 
+        data=delomys,
+        main = "Delomys Body Length vs. Species and Sex",
+        xlab = "Delomys Species And Sex",
+        ylab = "Body Mass (g)",
+        ylim = c(40, 300),
+        frame = FALSE,
+        notch = TRUE,
+        names = c("D.dorsalis - F", "D.sublineatus - F", "D.dorsalis - M", "D.sublineatus - M"),
+        col = (c("red", "orange", "red", "orange")))
+     
+```
+
+The body length boxplot, which is conditioned on both species and sex, shows us that among the two species of Delomys and their gender, there is very little variance in body length. 
+
+### Questions
+
+#### Question 1:
+  
+**Qualitatively describe the relationship between body mass and length. Does the relationship seem linear, curved, nonexistent?**
+  
+The relationship between Delomys body mass and body length is clustered, but it does have a linear relationship as shown by the regression line. This linear relationship demonstrates that as the body length of Delomys increases, their body mass also increases. Pints that are disassociated with the predominant cluster represent statistical anomalies.::: 
+  
+#### Question 2:
+  
+**Qualitatively describe the shapes of the histograms. Do the data appear normally-distributed? Explain why or why not.**
+
+Both histograms are normally distributed, as one can derive a normal bell curve for each by following the tiers of the histogram bars. The second histogram, however, is slightly skewed to the right and has a much narrower curve - meaning that when it comes to body length, there is less variance in the data and that these creatures exhibit a narrower range of lengths. In observing the body mass histogram, we can see that the predominant weight of Delomys is between 30-70g. And, in observing the body length histogram, we can see that the predominant length of Delomys is between 100-130mm.
+  
+#### Question 3:
+  
+**Using both the histograms and normality tests, do you think the (unconditioned) body masses and body length are normally-distributed?**
+
+Regarding the body mass variable, Shapiro normality test indicated a p-value of 4.33e-05; and, regarding the body length variable, it indicated a p-value of 2.2e-16. Given that both p-value results were less than 0.05, or 5%, it means that the distribution is not normal. 
+
+#### Question 4:
+
+**Question 4: Contrast your visual assessment of normality to the results of the numerical normality tests. Examine the conditional boxplots. Describe any graphical evidence you see for body mass differences based on species and/or sex.**
+
+Generally observing, both histograms appear to be normally distributed, as explained in Question 2. However, both Shapiro normality tests indicate otherwise. It is easier to perceive the potential reason for this in the second histogram for the body length as the bell curve was much narrower and skewed to the right.  
+
+In evaluating the boxpolts, the body mass boxplot, which is conditioned on both species and sex, showed that both the species of *Delomys dorsalis* are heavier than the *Delomys sublineatus*, and that their respective genders are also heavier for the *Delomys dorsalis* than the *Delomys sublineatus* species. In evaluating the body length boxplot, which was also conditioned on both species and sex, we saw that there is very little variance between the species and their respective genders in body length.  
+
+## Model Building {.tabset .tabset-pills}
+
+This section will fit five models using the *'lm()'* function. We know that the normality assumption applies to the residual values after we fit a model.
+
+The first model will predict body length as a function of body mass. Other models will use the categorical variables binomial and sex to predict body mass.Each of the models will be saved into a *'fit'* variable, numbered from 1 to 5, for use in subsequent sections. 
+
+### Model 1
+
+#### Simple Linear Regression of Body Length vs. Body Mass:
+
+```{r fit1}
+
+fit1 = lm(body_length ~ body_mass, data= delomys)
+
+summary(fit1)
+
+coef(fit1)
+
+```
+
+### Model 2
+
+#### 1-Way ANOVA of Body Mass vs. Sex:
+
+```{r fit2}
+
+fit2 = lm(body_mass ~ sex, data=delomys)
+
+summary(fit2)
+
+anova(fit2)
+
+```
+
+### Model 3
+
+#### 1-Way ANOVA of Body Mass vs. Species:
+
+```{r fit3}
+
+fit3 = lm(body_mass~binomial, data = delomys)
+
+summary(fit3)
+
+anova(fit3)
+
+```
+
+### Model 4
+
+#### 2-Way Additive ANOVA of Body Mass vs. Sex and Species:
+
+```{r fit4}
+
+fit4 = lm(body_mass~sex + binomial, data = delomys)
+
+summary(fit4)
+
+anova(fit4)
+
+```
+
+### Model 5
+
+#### 2-Way Factorial ANOVA of Body Mass vs. Sex and Species:
+
+```{r fit5}
+
+fit5 = lm(body_mass~sex * binomial, data = delomys)
+
+summary(fit5)
+
+anova(fit5)
+
+```
+
+
+## Model Diagnostics {.tabset .tabset-pills}
+
+This section will evaluate whether the five created models from the previous section fulfill the assumption of normality of the residuals. 
+
+First, we will show a graphical approach using histograms for each model's residuals. Second, we will use the Shapiro test on each of the five models to test the null hypothesis, which is that the residuals are drawn from a normally distributed population. 
+
+### Model 1
+
+#### Model 1 Histogram:
+
+```{r residual_histograms_fit_1, fig.asp=1, fig.width=10, fig.height=6}
+
+fit1residual <- residuals(fit1) # Body mass vs. body length residuals.
+
+hist(fit1residual, 
+     main = "Model 1 Residuals Histogram: Body Mass vs. Body Length",
+     xlab = "Body Mass vs. Body Length Residuals",
+     col = "blue",
+     breaks = 30,
+     xlim = c(-60, 160), 
+     ylim = c(0, 450))
+
+```
+
+#### Model 1 Shapiro Test:
+
+```{r shapirotests_fit_1}
+
+shapiro.test(fit1residual)
+
+```
+
+### Model 2
+
+#### Model 2 Histogram:
+
+```{r residual_histograms_fit_2, fig.asp=1, fig.width=10, fig.height=6}
+
+fit2residual <- residuals(fit2) # Body mass vs. sex residuals.
+
+hist(fit2residual,
+     main = "Model 2 Residuals Histogram: Body Mass vs. Sex",
+     xlab = "Body Mass vs. Sex Residuals",
+     col = "blue",
+     breaks = 30,
+     xlim = c(-60, 100), 
+     ylim = c(0, 300))
+
+```
+
+#### Model 2 Shapiro Test:
+
+```{r shapirotests_fit_2}
+
+shapiro.test(fit2residual)
+
+```
+
+### Model 3
+
+#### Model 3 Histogram:
+
+```{r residual_histograms_fit_3, fig.asp=1, fig.width=10, fig.height=6}
+
+fit3residual <- residuals(fit3) # Body mass vs. species residuals.
+
+hist(fit3residual,
+     main = "Model 2 Residuals Histogram: Body Mass vs. Species",
+     xlab = "Body Mass vs. Species Residuals",
+     col = "blue",
+     breaks = 30,
+     xlim = c(-60, 100), 
+     ylim = c(0, 300)) 
+
+```
+
+#### Model 3 Shapiro Test:
+
+```{r shapirotests_fit_3}
+
+shapiro.test(fit3residual)
+
+```
+
+### Model 4
+
+#### Model 4 Histogram:
+
+```{r residual_histograms_fit_4, fig.asp=1, fig.width=10, fig.height=6}
+
+fit4residual <- residuals(fit4) # Body mass vs. sex + species residuals. 
+
+hist(fit4residual,
+     main = "Model 2 Residuals Histogram: Body Mass vs. Sex and Species",
+     xlab = "Body Mass vs. Sex and Species Residuals",
+     col = "blue",
+     breaks = 30,
+     xlim = c(-60, 100), 
+     ylim = c(0, 300)) 
+
+```
+
+#### Model 4 Shapiro Test:
+
+```{r shapirotests_fit_4}
+
+shapiro.test(fit4residual)
+
+```
+
+### Model 5
+
+#### Model 5 Histogram:
+
+```{r residual_histograms_fit_5, fig.asp=1, fig.width=10, fig.height=6}
+
+fit5residual <- residuals(fit5) # Body mass vs. sex * species residuals. 
+
+hist(fit5residual,
+     main = "Model 2 Residuals Histogram: Body Mass vs. Sex Factored w/ Species",
+     xlab = "Body Mass vs. Sex Factored w/ Species Residuals",
+     col = "blue",
+     breaks = 30,
+     xlim = c(-60, 100), 
+     ylim = c(0, 300))
+
+```
+
+#### Model 5 Shapiro Test:
+
+```{r shapirotests_fit_5}
+
+shapiro.test(fit5residual)
+
+```
+
+### Questions
+
+#### Question 1:
+  
+**What do you conclude about residual normality based on the numerical and graphical diagnostics?**
+  
+In general observation, model 2 residuals through model 5 residuals histograms appear to portray a normal distribution. Model 1 residuals histogram has a very narrow curve which is significantly skewed to the left. However, the Shapiro tests for each model resulted in a p-value lower than 0.05, or 5%. This rejects the hypothesis that the residuals are drawn from a normally distributed population. 
+
+#### Question 2:
+  
+**Are violations of the normality assumption equally severe for all the models?**
+  
+As stated in the previous question, the Shapiro tests for all five models resulted in a non normal distribution. However, even though the p-values were below 0.05, or 5%, their values differed significantly among the tests which indicates a varying degree of non normality. Particularly, Model 1 resulted in a very low p-value compared to model 2 through model 5 residuals. 
+
+## Model Interpretation {.tabset .tabset-pills}
+
+### Body Length
+
+#### Coefficient Table:
+
+```{r bodylength_coefftable_fit1}
+
+knitr::kable(coef(summary(fit1)))
+
+```
+
+#### Scatterplot of Delomys *body mass* and *body length*:
+
+```{r scatterplot_6, fig.asp=1, fig.width=10, fig.height=12}
+
+plot(
+  body_length ~ body_mass, 
+  data = delomys, 
+  main = "Delomys Body Length vs. Body Mass Scatterplot", 
+  xlab = "Body Length (mm)", 
+  ylab = "Body Mass (g)", 
+  col = "purple", 
+  pch = 16,
+  frame = FALSE,
+  xlim = c(0,100), 
+  ylim = c(0,250))
+
+abline(lm(body_length~body_mass, data=delomys), col="red") #Regression line
+
+```
+
+#### Questions:
+
+**1) What is the magnitude of the mass/length relationship?**
+    
+Magnitude is represented by the slope, which is the intercept coefficient of 76.12 for when body length is 0 (as shown on the scatterplot diagram). This line (or magnitude) rises by 0.89 (body mass coefficient) for each body length value (or x)
+
+y = 76.12 + 0.89 (x) + e
+  
+**2) What is the expected body length of an an animal that weighs 100g?**
+    
+If y is to be 100g, we would subtract the intercept coefficient of 76.12 from 100, and divide by 0.89. 
+This number would be 26.83 mm.
+Checking against the scatterplot regression line, if we were to draw a point on the line that is at about 100g along the y axis, 26.83 or ~27 looks to be correct. 
+    
+**3) What is the expected body length of an animal that weighs 0g?**
+    
+Mathematically, by interpreting the graph, it would be the intercept coefficient value of 76.12 grams.
+However, realistically, it is impossible for an animal to weigh zero grams. If we look at the scatterplot diagram, the first points of data occur at about 60 grams and 5mm of length - meaning these are likely the newborn Delomys, recorded at their minimal body mass and length. 
+
+### Body Mass: Model Coefficients
+
+#### Coefficient Tables:
+
+```{r bodymass_coefftable_fit2_3}
+
+knitr::kable(coef(summary(fit2)))
+
+knitr::kable(coef(summary(fit3)))
+
+```
+
+#### Questions:
+  
+**1) What is the base level for sex?**
+  
+The base intercept coefficient is 42.71.
+  
+**2) What is the base level for binomial?**
+  
+The base intercept coefficient is 46.75.
+  
+**3) Which sex is heavier?**
+  
+Male sex. 
+
+This is represented in the coefficient table in that the base intercept implies the lower weight sex of Delomys, which in this case is female. The table tells us that for analyzing males we would be adding the *sexmale* coefficient of 2.78 to our calculations, meaning that males weigh more. 
+  
+**4) Which species is heavier?**
+  
+Delomys dorsalis.
+
+With similar logic to the previous question, this is represented in the coefficient table in that the base intercept implies the higher weight species as the baseline. The negative coefficient for *Delomys sublineatus* means that we would be subtracting 7.68 grams from the base coefficient when analyzing this species, meaning that they weigh less.
+    
+### Body Mass: ANOVA
+
+#### Coefficient Tables:
+
+```{r bodymass_coefftable_fit4_5}
+
+knitr::kable(coef(summary(fit4)))
+
+knitr::kable(coef(summary(fit5)))
+
+```
+
+#### Questions:
+  
+**1) Are sex and species significant predictors for body mass?**
+  
+Yes. The p value is less than 0.05 or 5%.
+  
+**2) Is there a significant interaction?**
+  
+No.
+
+**3) Does the significance (as measured by p-value) of either of the main effects (sex and species) differ much between the single-predictor models, the additive model, and the interactive model?**
+
+No.
+
+## Model Comparison
+
+```{r model_comparisons}
+
+AIC(fit1)
+
+AIC(fit2)
+
+AIC(fit3)
+
+AIC(fit4)
+
+AIC(fit5)
+
+```
+
+#### Questions:
+  
+**1) Which two models have the lowest AIC?**
+  
+Model 4 (fit 4) and Model 5 (fit 5).
+Model 1 (fit 1) is factoring body length, thus its AIC value is misleading.
+  
+**2) Which of the two models with lowest AIC scores would you select? Explain your decision based on model fit and the complexity/understanding trade-off.**
+   
+Model 4 (fit 4) because it the lowest of the two AIC's. 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
